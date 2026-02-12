@@ -28,17 +28,6 @@ export class BackofficeInfrastructureStack extends cdk.Stack {
       },
     });
 
-    // Lambda function to handle form validation events
-    const formValidationHandler = new lambda.Function(this, 'FormValidationHandler', {
-      runtime: lambda.Runtime.NODEJS_18_X,
-      handler: 'index.handler',
-      code: lambda.Code.fromAsset(path.join(__dirname, '../lambda/form-validation-handler')),
-      functionName: 'backoffice-form-validation-handler',
-      environment: {
-        EVENT_BUS_NAME: this.eventBus.eventBusName,
-      },
-    });
-
     // Lambda function to handle data processing events
     const dataProcessingHandler = new lambda.Function(this, 'DataProcessingHandler', {
       runtime: lambda.Runtime.NODEJS_18_X,
@@ -61,17 +50,6 @@ export class BackofficeInfrastructureStack extends cdk.Stack {
     });
     formSubmissionRule.addTarget(new targets.LambdaFunction(formSubmissionHandler));
 
-    // EventBridge rule for form validation events
-    const formValidationRule = new events.Rule(this, 'FormValidationRule', {
-      eventBus: this.eventBus,
-      eventPattern: {
-        source: ['backoffice.forms'],
-        detailType: ['FormValidationRequired'],
-      },
-      ruleName: 'backoffice-form-validation-rule',
-    });
-    formValidationRule.addTarget(new targets.LambdaFunction(formValidationHandler));
-
     // EventBridge rule for data processing events
     const dataProcessingRule = new events.Rule(this, 'DataProcessingRule', {
       eventBus: this.eventBus,
@@ -85,7 +63,6 @@ export class BackofficeInfrastructureStack extends cdk.Stack {
 
     // Grant EventBridge permissions to invoke Lambda functions
     this.eventBus.grantPutEventsTo(formSubmissionHandler);
-    this.eventBus.grantPutEventsTo(formValidationHandler);
     this.eventBus.grantPutEventsTo(dataProcessingHandler);
 
     // Outputs

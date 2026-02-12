@@ -57,14 +57,6 @@ export class EventBridgeService {
     });
   }
 
-  async publishFormValidation(formData: any): Promise<void> {
-    await this.publishEvent('backoffice.forms', 'FormValidationRequired', {
-      validationId: `validation-${Date.now()}`,
-      formData,
-      timestamp: new Date().toISOString(),
-    });
-  }
-
   async publishDataProcessing(data: any): Promise<void> {
     await this.publishEvent('backoffice.data', 'DataProcessingRequired', {
       processingId: `processing-${Date.now()}`,

@@ -50,13 +50,9 @@ router.post('/validate', async (req: Request, res: Response) => {
     }
     const formData = parsedFormData.data;
     
-    // Publish form validation event to EventBridge
-    await eventBridgeService.publishFormValidation(formData);
-    
     res.json({
       success: true,
-      message: 'Form validation requested',
-      validationId: `validation-${Date.now()}`,
+      message: 'Form data is valid',
     });
   } catch (error) {
     console.error('Error validating form:', error);
