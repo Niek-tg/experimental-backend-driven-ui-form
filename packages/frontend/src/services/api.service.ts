@@ -37,9 +37,9 @@ export const apiService = {
   },
 
   // Get a specific schema by ID
-  async getSchema(schemaId: string): Promise<RJSFSchema> {
+  async getSchema(schemaId: string): Promise<RJSFSchema | null> {
     const response = await apiClient.get<SchemaResponse>(`/schemas/${schemaId}`);
-    return response.data.schema as RJSFSchema;
+    return response.data.schema ?? null;
   },
 
   // Submit form data
