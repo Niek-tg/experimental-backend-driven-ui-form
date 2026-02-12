@@ -19,7 +19,7 @@ export class BackofficeInfrastructureStack extends cdk.Stack {
 
     // Lambda function to handle form submission events
     const formSubmissionHandler = new lambda.Function(this, 'FormSubmissionHandler', {
-      runtime: lambda.Runtime.NODEJS_18_X,
+      runtime: lambda.Runtime.NODEJS_20_X,
       handler: 'index.handler',
       code: lambda.Code.fromAsset(path.join(__dirname, '../lambda/form-submission-handler')),
       functionName: 'backoffice-form-submission-handler',
@@ -30,7 +30,7 @@ export class BackofficeInfrastructureStack extends cdk.Stack {
 
     // Lambda function to handle data processing events
     const dataProcessingHandler = new lambda.Function(this, 'DataProcessingHandler', {
-      runtime: lambda.Runtime.NODEJS_18_X,
+      runtime: lambda.Runtime.NODEJS_20_X,
       handler: 'index.handler',
       code: lambda.Code.fromAsset(path.join(__dirname, '../lambda/data-processing-handler')),
       functionName: 'backoffice-data-processing-handler',

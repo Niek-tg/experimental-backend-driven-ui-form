@@ -11,18 +11,23 @@
     "lint": "eslint src --ext .ts,.tsx"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "@rjsf/core": "^5.15.0",
-    "@rjsf/utils": "^5.15.0",
-    "@rjsf/validator-ajv8": "^5.15.0",
-    "axios": "^1.6.5"
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "@rjsf/core": "^6.3.1",
+    "@rjsf/utils": "^6.3.1",
+    "@rjsf/validator-ajv8": "^6.3.1",
+    "axios": "^1.13.5"
   },
   "devDependencies": {
-    "@types/react": "^18.2.47",
-    "@types/react-dom": "^18.2.18",
-    "@vitejs/plugin-react": "^4.2.1",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.11"
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.55.0",
+    "@typescript-eslint/parser": "^8.55.0",
+    "@vitejs/plugin-react": "^5.1.4",
+    "eslint": "^9.39.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
   }
 }
