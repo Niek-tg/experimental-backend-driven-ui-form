@@ -31,8 +31,8 @@ This monorepo contains three interconnected projects:
 
 ## Prerequisites
 
-- Node.js >= 18.0.0
-- pnpm >= 8.0.0
+- Node.js >= 24.0.0
+- pnpm >= 10.0.0
 - AWS CLI configured (for infrastructure deployment)
 - AWS CDK CLI (installed via infrastructure package)
 
@@ -194,10 +194,36 @@ VITE_API_BASE_URL=http://localhost:3001/api
 
 ## Technology Stack
 
-- **Frontend**: React, TypeScript, Vite, @rjsf/core (JSON Schema Forms)
-- **Backend**: Express.js, TypeScript, AWS SDK v3 (EventBridge)
-- **Infrastructure**: AWS CDK, TypeScript
-- **Package Manager**: pnpm with workspaces
+- **Frontend**: React 19, TypeScript 5.9, Vite 7, @rjsf/core 6 (JSON Schema Forms)
+- **Backend**: Express.js 5, TypeScript 5.9, AWS SDK v3 (EventBridge)
+- **Infrastructure**: AWS CDK 2.238, TypeScript 5.9, Lambda Node.js 20
+- **Package Manager**: pnpm 10+ with workspaces
+- **Linting**: ESLint 9 with TypeScript support
+
+## Updating Dependencies
+
+To check for outdated dependencies:
+
+```bash
+pnpm outdated -r
+```
+
+To update all dependencies to their latest versions:
+
+```bash
+pnpm update -r --latest
+```
+
+### Breaking Changes to Note
+
+When updating to the latest versions, be aware of these major version changes:
+
+- **React 19**: Uses the new `react-dom/client` API with `createRoot`. Class components are discouraged.
+- **Express 5**: Async route handlers are now automatically wrapped. Add global error handling middleware.
+- **Vite 7**: Drops CommonJS build, uses ESM only. Ensure all imports use ESM syntax.
+- **@rjsf/core 6**: Requires separate validator package (`@rjsf/validator-ajv8`). Theme packages must be imported separately.
+- **ESLint 9**: Uses flat config format (`eslint.config.mjs`) instead of `.eslintrc.*` files.
+- **AWS CDK 2.238**: Includes the latest AWS service updates. Lambda Node.js 18 is deprecated in favor of Node.js 20+.
 
 ## License
 
