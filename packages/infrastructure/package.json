@@ -1,0 +1,25 @@
+{
+  "name": "infrastructure",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AWS CDK infrastructure for EventBridge and Lambda functions",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "clean": "rm -rf dist cdk.out *.tsbuildinfo",
+    "cdk": "cdk",
+    "deploy": "cdk deploy",
+    "synth": "cdk synth",
+    "diff": "cdk diff",
+    "destroy": "cdk destroy"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "aws-cdk": "^2.117.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.117.0",
+    "constructs": "^10.3.0"
+  }
+}
