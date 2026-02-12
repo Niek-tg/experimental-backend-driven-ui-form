@@ -9,7 +9,6 @@ export const userRegistrationSchema = z
     role: z.enum(['admin', 'user', 'viewer']).default('user').meta({ title: 'Role' }),
     bio: z.string().max(500).meta({ title: 'Bio' }).optional(),
   })
-  .passthrough()
   .meta({ title: 'User Registration' });
 
 export const contactFormSchema = z
@@ -20,7 +19,6 @@ export const contactFormSchema = z
     message: z.string().meta({ title: 'Message' }),
     urgent: z.boolean().default(false).meta({ title: 'Urgent' }),
   })
-  .passthrough()
   .meta({ title: 'Contact Form' });
 
 export const formSchemas = {
