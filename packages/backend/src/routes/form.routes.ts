@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import { formDataSchema } from '../schemas/formSchemas';
 import { eventBridgeService } from '../services/eventbridge.service';
 
 const router = Router();
@@ -6,7 +7,16 @@ const router = Router();
 // Submit form data
 router.post('/submit', async (req: Request, res: Response) => {
   try {
-    const formData = req.body;
+    const parsedFormData = formDataSchema.safeParse(req.body);
+
+    if (!parsedFormData.success) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid form data',
+        error: parsedFormData.error.flatten(),
+      });
+    }
+    const formData = parsedFormData.data;
     
     // Publish form submission event to EventBridge
     await eventBridgeService.publishFormSubmission(formData);
@@ -29,7 +39,16 @@ router.post('/submit', async (req: Request, res: Response) => {
 // Validate form data
 router.post('/validate', async (req: Request, res: Response) => {
   try {
-    const formData = req.body;
+    const parsedFormData = formDataSchema.safeParse(req.body);
+
+    if (!parsedFormData.success) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid form data',
+        error: parsedFormData.error.flatten(),
+      });
+    }
+    const formData = parsedFormData.data;
     
     // Publish form validation event to EventBridge
     await eventBridgeService.publishFormValidation(formData);
@@ -52,7 +71,16 @@ router.post('/validate', async (req: Request, res: Response) => {
 // Process form data
 router.post('/process', async (req: Request, res: Response) => {
   try {
-    const data = req.body;
+    const parsedData = formDataSchema.safeParse(req.body);
+
+    if (!parsedData.success) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid form data',
+        error: parsedData.error.flatten(),
+      });
+    }
+    const data = parsedData.data;
     
     // Publish data processing event to EventBridge
     await eventBridgeService.publishDataProcessing(data);
