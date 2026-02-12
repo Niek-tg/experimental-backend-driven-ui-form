@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Form from '@rjsf/core';
+import Form, { type IChangeEvent } from '@rjsf/core';
+import type { RJSFSchema } from '@rjsf/utils';
 import validator from '@rjsf/validator-ajv8';
 import { apiService } from '../services/api.service';
 
@@ -8,7 +9,7 @@ interface DynamicFormProps {
 }
 
 const DynamicForm: React.FC<DynamicFormProps> = ({ schemaId }) => {
-  const [schema, setSchema] = useState<any>(null);
+  const [schema, setSchema] = useState<RJSFSchema | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -32,7 +33,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ schemaId }) => {
     }
   };
 
-  const handleSubmit = async ({ formData }: any) => {
+  const handleSubmit = async ({ formData }: IChangeEvent) => {
     try {
       setSubmitting(true);
       setSubmitMessage(null);
