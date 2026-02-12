@@ -1,0 +1,24 @@
+{
+  "name": "experimental-backend-driven-ui-form",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monorepo for backend-driven UI forms with EventBridge integration",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "pnpm --filter \"./packages/**\" run build",
+    "dev:backend": "pnpm --filter backend run dev",
+    "dev:frontend": "pnpm --filter frontend run dev",
+    "deploy:infra": "pnpm --filter infrastructure run deploy",
+    "lint": "pnpm --filter \"./packages/**\" run lint",
+    "clean": "pnpm --filter \"./packages/**\" run clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}
