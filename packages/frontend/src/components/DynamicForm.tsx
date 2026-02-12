@@ -3,6 +3,7 @@ import Form, { type IChangeEvent } from '@rjsf/core';
 import type { RJSFSchema } from '@rjsf/utils';
 import validator from '@rjsf/validator-ajv8';
 import { apiService } from '../services/api.service';
+import styles from './DynamicForm.module.css';
 
 interface DynamicFormProps {
   schemaId: string;
@@ -23,6 +24,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ schemaId }) => {
     try {
       setLoading(true);
       setError(null);
+      setSubmitMessage(null);
       const fetchedSchema = await apiService.getSchema(schemaId);
       setSchema(fetchedSchema);
     } catch (err) {
@@ -38,7 +40,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ schemaId }) => {
       setSubmitting(true);
       setSubmitMessage(null);
       const response = await apiService.submitForm(formData);
-      
+
       if (response.success) {
         setSubmitMessage(`Success! Submission ID: ${response.submissionId}`);
       } else {
@@ -53,28 +55,49 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ schemaId }) => {
   };
 
   if (loading) {
-    return <div className="loading">Loading form...</div>;
+    return (
+      <div className={styles.loading}>
+        <div className={styles.loadingSpinner} />
+        <span className={styles.loadingText}>Loading form...</span>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="error">{error}</div>;
+    return <div className={styles.errorState}>{error}</div>;
   }
 
   if (!schema) {
-    return <div className="error">No schema available</div>;
+    return <div className={styles.errorState}>No schema available</div>;
   }
 
   return (
-    <div className="dynamic-form">
-      <h2>{schema.title}</h2>
-      <Form
-        schema={schema}
-        validator={validator}
-        onSubmit={handleSubmit}
-        disabled={submitting}
-      />
+    <div className={styles.form}>
+      <h2 className={styles.formTitle}>{schema.title}</h2>
+      {schema.description && (
+        <p className={styles.formDescription}>{schema.description}</p>
+      )}
+
+      <div className={styles.card}>
+        <div className={styles.formWrapper}>
+          <Form
+            schema={schema}
+            validator={validator}
+            onSubmit={handleSubmit}
+            disabled={submitting}
+            showErrorList={false}
+          />
+        </div>
+      </div>
+
       {submitMessage && (
-        <div className={`message ${submitMessage.startsWith('Success') ? 'success' : 'error'}`}>
+        <div
+          className={`${styles.message} ${
+            submitMessage.startsWith('Success')
+              ? styles.messageSuccess
+              : styles.messageError
+          }`}
+        >
           {submitMessage}
         </div>
       )}

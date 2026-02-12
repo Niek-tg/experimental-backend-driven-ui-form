@@ -1,0 +1,111 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-neutral-50);
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 0 auto;
+  height: calc(100vh - var(--header-height));
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  border-right: 1px solid var(--color-neutral-200);
+  background: var(--color-neutral-0);
+  overflow-y: auto;
+  padding: var(--space-6);
+  animation: slideInLeft var(--duration-slow) var(--ease-out);
+}
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-8);
+  animation: slideInRight var(--duration-slow) var(--ease-out);
+}
+
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 400px;
+}
+
+.placeholderInner {
+  text-align: center;
+  padding: var(--space-12);
+  max-width: 420px;
+}
+
+.placeholderIcon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto var(--space-6);
+  background: var(--color-primary-50);
+  border-radius: var(--radius-2xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholderIcon svg {
+  width: 40px;
+  height: 40px;
+  color: var(--color-primary-500);
+}
+
+.placeholderTitle {
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  color: var(--color-neutral-900);
+  margin-bottom: var(--space-2);
+}
+
+.placeholderText {
+  font-size: var(--text-sm);
+  color: var(--color-neutral-500);
+  line-height: var(--leading-relaxed);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 260px;
+  }
+
+  .main {
+    padding: var(--space-6);
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+    height: auto;
+    min-height: calc(100vh - var(--header-height));
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--color-neutral-200);
+    max-height: 280px;
+    padding: var(--space-4);
+  }
+
+  .main {
+    padding: var(--space-4);
+  }
+
+  .placeholder {
+    min-height: 300px;
+  }
+}
