@@ -1,4 +1,5 @@
 import axios from 'axios';
+import type { RJSFSchema } from '@rjsf/utils';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
@@ -16,7 +17,7 @@ export interface Schema {
 
 export interface SchemaResponse {
   success: boolean;
-  schema?: any;
+  schema?: RJSFSchema;
   schemas?: Schema[];
   message?: string;
 }
@@ -36,9 +37,9 @@ export const apiService = {
   },
 
   // Get a specific schema by ID
-  async getSchema(schemaId: string): Promise<any> {
+  async getSchema(schemaId: string): Promise<RJSFSchema> {
     const response = await apiClient.get<SchemaResponse>(`/schemas/${schemaId}`);
-    return response.data.schema;
+    return response.data.schema as RJSFSchema;
   },
 
   // Submit form data
