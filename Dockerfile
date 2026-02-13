@@ -8,7 +8,14 @@ COPY packages/backend/package.json packages/backend/package.json
 COPY packages/frontend/package.json packages/frontend/package.json
 RUN pnpm install --frozen-lockfile
 
-COPY . .
+COPY tsconfig.json tsconfig.json
+COPY packages/backend/tsconfig.json packages/backend/tsconfig.json
+COPY packages/backend/src packages/backend/src
+COPY packages/frontend/tsconfig.json packages/frontend/tsconfig.json
+COPY packages/frontend/tsconfig.node.json packages/frontend/tsconfig.node.json
+COPY packages/frontend/vite.config.ts packages/frontend/vite.config.ts
+COPY packages/frontend/index.html packages/frontend/index.html
+COPY packages/frontend/src packages/frontend/src
 RUN pnpm --filter backend build && pnpm --filter frontend build
 
 FROM node:24-alpine AS backend-deps
