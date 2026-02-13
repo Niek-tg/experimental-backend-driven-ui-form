@@ -30,16 +30,20 @@ RUN pnpm install --filter backend... --prod --frozen-lockfile
 FROM nginx:1.29-alpine AS runtime
 WORKDIR /app
 
-COPY --from=node:24-alpine /usr/local /usr/local
+COPY --from=node:24-alpine /usr/local/bin/node /usr/local/bin/node
+COPY --from=node:24-alpine /usr/local/lib /usr/local/lib
 COPY --from=backend-deps /app/node_modules /app/node_modules
 COPY --from=backend-deps /app/packages/backend/node_modules /app/packages/backend/node_modules
 COPY --from=build /app/packages/backend/dist /app/packages/backend/dist
 COPY --from=build /app/packages/frontend/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY start.sh /start.sh
 
 ENV NODE_ENV=production
 ENV PORT=3001
 
 EXPOSE 80
 
-CMD ["sh", "-c", "node /app/packages/backend/dist/index.js & exec nginx -g 'daemon off;'"]
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s CMD wget --no-verbose --tries=1 --spider http://127.0.0.1/health || exit 1
+
+CMD ["/start.sh"]

@@ -166,6 +166,16 @@ docker run --rm -p 8080:80 experimental-backend-driven-ui-form
 
 Then open `http://localhost:8080`.
 
+If you want EventBridge publishing enabled, pass backend environment variables:
+
+```bash
+docker run --rm -p 8080:80 \
+  --env-file packages/backend/.env \
+  experimental-backend-driven-ui-form
+```
+
+For production, prefer IAM roles (or another managed credential provider) instead of hardcoding credentials.
+
 Or run it with Docker Compose:
 
 ```bash
