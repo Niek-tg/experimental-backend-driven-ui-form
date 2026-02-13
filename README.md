@@ -150,6 +150,22 @@ Three Lambda functions are deployed to handle EventBridge events:
 pnpm build
 ```
 
+### Build and Run a Single Docker Container
+
+Build the Alpine-based image that bundles frontend and backend:
+
+```bash
+docker build -t experimental-backend-driven-ui-form .
+```
+
+Run the container:
+
+```bash
+docker run --rm -p 8080:80 experimental-backend-driven-ui-form
+```
+
+Then open `http://localhost:8080`.
+
 ### Run Linters
 
 ```bash
