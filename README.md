@@ -166,6 +166,12 @@ docker run --rm -p 8080:80 experimental-backend-driven-ui-form
 
 Then open `http://localhost:8080`.
 
+Or run it with Docker Compose:
+
+```bash
+docker compose up --build
+```
+
 ### Run Linters
 
 ```bash
